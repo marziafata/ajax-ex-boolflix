@@ -9,7 +9,7 @@
         <!-- bootstrap 3-->
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
         <!-- bootstrap 4-->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <!-- include Handlebars from a CDN -->
         <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
         <!-- jquery -->
@@ -19,13 +19,13 @@
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-light bg-light">
-                <img src="logo.png" alt="logo Boolflix" height="54">
-                <form class="form-inline">
-                    <input id="testo-ricerca"class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button id="pulsante-ricerca"class="btn btn-outline-success my-2 my-sm-0">Search</button>
-                </form>
-            </nav>
+            <div class="header-left">
+                <img src="logo.png" alt="logo boolflix" height="70">
+            </div>
+            <div class="header-right">
+                <input id="testo-ricerca"type="text">
+                <button id="pulsante-ricerca"type="button" name="button">Cerca</button>
+            </div>
         </header>
         <main>
             <div class="container">
@@ -44,18 +44,16 @@
 
 
     <!-- TEMPLATE con HANDLEBARS -->
-    <!-- <script id="entry-template" type="text/x-handlebars-template"> -->
-    <div class="template">
-        <div class="card" style="width: 18rem;">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Titolo</li>
-                <li class="list-group-item">Titolo originale</li>
-                <li class="list-group-item">Lingua</li>
-                <li class="list-group-item">Voto</li>
+    <script id="entry-template" type="text/x-handlebars-template">
+        <div class="scheda-film">
+            <ul>
+                <!-- <li class="list-group-item">Titolo</li> -->
+                <li>{{titolo-originale}}</li>
+                <li>{{lingua}}</li>
+                <li>{{voto}}</li>
             </ul>
         </div>
-    </div>
-    <!-- </script> -->
+    </script>
     <!-- javascript e jquery -->
     <script src="main.js" charset="utf-8"></script></body>
 </html>

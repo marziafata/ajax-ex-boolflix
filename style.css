@@ -4,18 +4,51 @@
     box-sizing: border-box;
 }
 
+header {
+    height: 100px;
+    background-color: black;
+    padding: 15px;
+}
+
+.header-left {
+    float: left;
+}
+
+.header-right {
+    float: right;
+}
+
 main {
-    padding-top: 100px;
-    height: calc(100vh - 70px);
-    background-image: url("sfondo.jpg");
+    width: 100%;
+    background-image: url('sfondo.jpg');
     background-size: cover;
+    height: calc( 100vh - 100px );
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
+    width: 70%;
     height: 100%;
-    background-color: rgb(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 100px 0;
 }
 
-.template {
-    display: none;
+div.scheda-film {
+    color: white;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+div.scheda-film ul {
+    list-style-type: none;
 }
