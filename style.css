@@ -22,15 +22,16 @@ main {
     width: 100%;
     background-image: url('sfondo.jpg');
     background-size: cover;
-    height: calc( 100vh - 100px );
+    height: calc(100vh - 100px);
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 
 .container {
     width: 70%;
-    height: 100%;
+    min-height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
@@ -39,16 +40,26 @@ main {
     padding: 100px 0;
 }
 
+.scheda-film ul span {
+    color: red;
+    font-weight: bold;
+}
+
 div.scheda-film {
+    height: 180px;
+    width: 300px;
     color: white;
     border: 1px solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 10px;
-    margin: 0 10px;
+    margin: 5px;
+    font-size: 14px;
+    font-family: sans-serif;
 }
 
 div.scheda-film ul {
     list-style-type: none;
+    line-height: 30px;
 }
