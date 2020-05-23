@@ -6,7 +6,7 @@
 
 main {
     padding-top: 100px;
-    height: calc(100vh - 54px);
+    height: calc(100vh - 70px);
     background-image: url("sfondo.jpg");
     background-size: cover;
 }
