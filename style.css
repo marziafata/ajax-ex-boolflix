@@ -3,3 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+main {
+    padding-top: 100px;
+    height: calc(100vh - 54px);
+    background-image: url("sfondo.jpg");
+    background-size: cover;
+}
