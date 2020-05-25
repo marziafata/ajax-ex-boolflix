@@ -69,12 +69,21 @@ function ricerca_utente() {
                     var lingua = film_corrente.original_language;
                     var voto = film_corrente.vote_average;
 
+                    //trasformo il voto da base 10 a base 5
                     console.log(titolo);
-                    console.log(voto);
                     var votoBaseFive = (voto / 2);
-                    console.log(votoBaseFive);
                     var voto_arrotondato = Math.ceil(votoBaseFive);
+                    console.log('voto:');
                     console.log(voto_arrotondato);
+                    var stella_piena = '<i class="fas fa-star"></i>'
+                    var voto_finale = '';
+                        for (var star = 1; star < voto_arrotondato + 1; star++) {
+                            voto_finale += stella_piena;
+                            console.log('numero di stelle:');
+                            console.log([star]);
+                            console.log('voto_finale');
+                            console.log(voto_finale);
+                        }
 
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
@@ -93,7 +102,7 @@ function ricerca_utente() {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : lingua,
-                        "voto" : voto_arrotondato
+                        "voto" : voto_finale
                     };//fine context
 
                     //compilo il template con le proprietà inserite dentro context
