@@ -38,6 +38,10 @@ $(document).ready(function() {
                     var lingua = film_corrente.original_language;
                     var voto = film_corrente.vote_average;
 
+                    // ESEMPIO PER APPENDERE HTML senza HANDLEBARS
+                    // var = dati_film = '<ul>';
+                    // dati_film += '<li>' + titolo + '</li>';//+= serve a creare e concatenare contemporaneamente una variabile: prende quello che c'era già salvato nella variabile e ci aggiunge il nuovo valore.
+
 
                     // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni film corrente
                     var context = {
