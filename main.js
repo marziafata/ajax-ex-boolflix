@@ -71,31 +71,35 @@ function ricerca_utente() {
 
                     //trasformo il voto da base 10 a base 5
                     console.log(titolo);
-                    var baseVoto = 5;
-                    var votoBaseFive = (voto / 2);
+                    var voto_massimo = 5;
+                    var voto_su_cinque = (voto / 2);
                     var voto_arrotondato = Math.ceil(votoBaseFive);
-                    var differenza_voto = (baseVoto - voto_arrotondato);
-                    console.log('voto:');
-                    console.log(voto_arrotondato);
+                    var differenza_voto = (voto_massimo - voto_arrotondato);
 
                     //creo le variabili che rappresentano le stelle vuote e piene
                     var stella_piena = '<i class="fas fa-star"></i>';
                     var stella_vuota = '<i class="far fa-star"></i>';
 
-                    //imposto la variabile che visualizzerà la somma delle stelle
-                    var voto_finale = '';
-                    var stelle_mancanti = '';
-                        for (var star = 1; star < voto_arrotondato + 1; star++) {
-                            voto_finale += stella_piena;
+                    //imposto le variabili che visualizzeranno la somma delle stelle sia piene che vuote
+                    var somma_stelle_piene = '';
+                    var differenza_stelle = '';
 
-                        }; //fine ciclo for rating stars
+                    //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
+                    for (var star = 1; star < voto_arrotondato + 1; star++) {
 
-                        for (var starV = 1; starV < differenza_voto + 1; starV++) {
-                            stelle_mancanti += stella_vuota;
+                        //contateno una stella per ogni unità di voto
+                        somma_stelle_piene += stella_piena;
 
-                        }; //fine ciclo for rating stars
+                    }; //fine ciclo for stelle piene
 
+                    //ciclo i la differenza voti per mettere tante stelle vuote quante sono le unità che mancano al massimo dei voti
+                    for (var starEmpty = 1; starEmpty < differenza_voto + 1; starEmpty++) {
+                        differenza_stelle += stella_vuota;
 
+                    }; //fine ciclo for stelle vuote
+
+                    //creo un array con le lingue di cui ho le bandierine
+                    var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'pt-BR' ];
 
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
