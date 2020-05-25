@@ -58,7 +58,6 @@ function ricerca_utente() {
                 //aggiungo la classe visible al titolo per visualizzarlo
                 $('.titolo-ricerca').addClass('visible');
                 var film = data.results;
-                console.log(film);
 
                 //ciclo l'array per leggere tutti gli oggetti all'interno
                 for (var i = 0; i < film.length; i++) {
@@ -69,6 +68,13 @@ function ricerca_utente() {
                     var titolo_originale = film_corrente.original_title;
                     var lingua = film_corrente.original_language;
                     var voto = film_corrente.vote_average;
+
+                    console.log(titolo);
+                    console.log(voto);
+                    var votoBaseFive = (voto / 2);
+                    console.log(votoBaseFive);
+                    var voto_arrotondato = Math.ceil(votoBaseFive);
+                    console.log(voto_arrotondato);
 
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
@@ -87,12 +93,11 @@ function ricerca_utente() {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : lingua,
-                        "voto" : voto
+                        "voto" : voto_arrotondato
                     };//fine context
 
                     //compilo il template con le proprietà inserite dentro context
                     var scheda_film = template(context);
-                    console.log(scheda_film);
 
                     //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
                     $('.ricerca').append(scheda_film);
@@ -101,7 +106,7 @@ function ricerca_utente() {
 
             },// fine success
             'error': function () {
-                console.log('errore');
+                alert('Si è verificato un errore...');
             }// fine error
 
         }); //fine ajax
