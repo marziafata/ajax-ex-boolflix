@@ -71,19 +71,31 @@ function ricerca_utente() {
 
                     //trasformo il voto da base 10 a base 5
                     console.log(titolo);
+                    var baseVoto = 5;
                     var votoBaseFive = (voto / 2);
                     var voto_arrotondato = Math.ceil(votoBaseFive);
+                    var differenza_voto = (baseVoto - voto_arrotondato);
                     console.log('voto:');
                     console.log(voto_arrotondato);
-                    var stella_piena = '<i class="fas fa-star"></i>'
+
+                    //creo le variabili che rappresentano le stelle vuote e piene
+                    var stella_piena = '<i class="fas fa-star"></i>';
+                    var stella_vuota = '<i class="far fa-star"></i>';
+
+                    //imposto la variabile che visualizzerà la somma delle stelle
                     var voto_finale = '';
+                    var stelle_mancanti = '';
                         for (var star = 1; star < voto_arrotondato + 1; star++) {
                             voto_finale += stella_piena;
-                            console.log('numero di stelle:');
-                            console.log([star]);
-                            console.log('voto_finale');
-                            console.log(voto_finale);
-                        }
+
+                        }; //fine ciclo for rating stars
+
+                        for (var starV = 1; starV < differenza_voto + 1; starV++) {
+                            stelle_mancanti += stella_vuota;
+
+                        }; //fine ciclo for rating stars
+
+
 
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
@@ -102,7 +114,7 @@ function ricerca_utente() {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : lingua,
-                        "voto" : voto_finale
+                        "voto" : voto_finale + stelle_mancanti
                     };//fine context
 
                     //compilo il template con le proprietà inserite dentro context
