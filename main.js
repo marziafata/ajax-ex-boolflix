@@ -8,7 +8,10 @@ $(document).ready(function() {
     $('#pulsante-ricerca').click(function(){
 
         //leggo il testo nell'input
-        var ricerca = $('#testo-ricerca').val();
+        var ricerca = $('#testo-ricerca').val().trim();
+
+        //inserisco il testo cercato dall'utente nel titolo della pagina
+        $('span.ricerca-utente').text(ricerca);
 
         // resetto l'input
         $('#testo-ricerca').val('');
@@ -16,7 +19,11 @@ $(document).ready(function() {
         //svuoto il container dai risultati precedenti
         // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
         // $('.container').html(''); // setta l'html del container a svuoto
-        $('.container').empty(''); //svuota il container
+        $('.ricerca').empty(''); //svuota il container
+        // il reset dell'input e del container meglio farli sempre vicini
+
+        //nascondo il titolo
+        $('.titolo-ricerca').removeClass('visible');
 
         $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',//questo non basta per avere una risposta dall'api. ha bisogno anche della chiave api key e della query (il valore della ricerca), altrimenti non mi restituisce niente
@@ -28,6 +35,9 @@ $(document).ready(function() {
                 'language': 'it'
             },//questo data è un oggetto che non ha nulla a che vedere con la funzione (data)
             'success': function (data) {
+
+                //aggiungo la classe visible al titolo per visualizzarlo
+                $('.titolo-ricerca').addClass('visible');
                 var film = data.results;
                 console.log(film);
 
@@ -67,14 +77,14 @@ $(document).ready(function() {
                     console.log(scheda_film);
 
                     //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
-                    $('.container').append(scheda_film);
+                    $('.ricerca').append(scheda_film);
 
                 }//fine ciclo for
 
-            },
+            },// fine success
             'error': function () {
                 console.log('errore');
-            }
+            }// fine error
 
 
         }); //fine ajax
