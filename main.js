@@ -1,19 +1,22 @@
 $(document).ready(function() {
 
-    //input testuale e pulsante
-    // quando l'utente clicca il pulsante leggo il testo
-    // con quel testo lì vado a compilare la mia query
-    // devo stampare titolo titolo originale lingua e voto
-    //BONUS: scelta risultati lingua
-
     //dichiaro le variabili che mi serviranno con Handlebars
     var source = $('#entry-template').html();
     var template = Handlebars.compile(source);
+
     // intercetto il click sul pulsante di ricerca
     $('#pulsante-ricerca').click(function(){
 
         //leggo il testo nell'input
         var ricerca = $('#testo-ricerca').val();
+
+        // resetto l'input
+        $('#testo-ricerca').val('');
+
+        //svuoto il container dai risultati precedenti
+        // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
+        // $('.container').html(''); // setta l'html del container a svuoto
+        $('.container').empty(''); //svuota il container
 
         $.ajax({
             'url': 'https://api.themoviedb.org/3/search/movie',//questo non basta per avere una risposta dall'api. ha bisogno anche della chiave api key e della query (il valore della ricerca), altrimenti non mi restituisce niente
