@@ -69,34 +69,34 @@ function ricerca_utente() {
                     var lingua = film_corrente.original_language;
                     var voto = film_corrente.vote_average;
 
-                    //trasformo il voto da base 10 a base 5
+                    //trasformo il voto da base 10 a base 5 e lo arrotondo
                     console.log(titolo);
                     var voto_massimo = 5;
                     var voto_su_cinque = (voto / 2);
                     var voto_arrotondato = Math.round(voto_su_cinque);
-                    var differenza_voto = (voto_massimo - voto_arrotondato);
 
                     //creo le variabili che rappresentano le stringhe delle stelle vuote e piene
                     var stella_piena = '<i class="fas fa-star"></i>';
                     var stella_vuota = '<i class="far fa-star"></i>';
 
-                    //imposto le variabili che visualizzeranno la somma delle stelle sia piene che vuote
+                    //imposto la variabile che visualizzerà la somma delle stelle sia piene che vuote
                     var somma_stelle = '';
-                    // var differenza_stelle = '';
 
                     //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
-                    for (var star = 1; star <= 5; star++) {
+                    for (var star = 1; star <= voto_massimo; star++) {
 
+                        // devo decidere quanto mettere stella piena e quando vuota:
+                        // finchè la mia variabile star (i) è minore o oguale al voto, metto le stelle piene
                         if (star <= voto_arrotondato) {
 
                             somma_stelle += stella_piena;
 
+                        // quando raggiunge il voto mette tante stelle vuote fino ad arrivare a voto massimo che è 5
                         } else {
                             somma_stelle += stella_vuota;
-                        }
+                        }// fine if stelline
 
-
-                    }; //fine ciclo for stelle piene
+                    }; //fine ciclo for stelle
 
 
                     function bandierine(lingua) {
