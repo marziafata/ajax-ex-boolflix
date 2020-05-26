@@ -98,16 +98,24 @@ function ricerca_utente() {
 
                     }; //fine ciclo for stelle vuote
 
-                    //creo un array con le lingue di cui ho le bandierine
-                    var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
 
-                    var bandiera_corrente = '<img src="img/flag_' + lingua + '" alt="' + lingua + '">'
-                    console.log(bandiera_corrente);
+                    function bandierine(lingua) {
+                        //creo un array con le lingue di cui ho le bandierine
+                        var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
+                        //creo una variabile con la stringa che mi serve
+                        var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
+                        console.log(bandiera_corrente);
 
-                    // if (film_corrente.original_language.includes(bandiere)) {
-                    //
-                    //
-                    // }
+                        if (bandiere.includes(lingua)) {
+                            // se la ho la foto della bandierina mi restituisce l'immagine
+                         return bandiera_corrente;
+
+                        } else {
+                         // altrimenti mostra il codice lingua
+                            return lingua;
+                        }// fine if bandiere incluse
+                        }; // fine funzione bandierine
+
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
                     // var dati_film = '<ul>';
@@ -123,7 +131,7 @@ function ricerca_utente() {
                     var context = {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
-                        "lingua" : bandiera_corrente,
+                        "lingua" : bandierine(lingua),
                         "voto" : somma_stelle_piene + differenza_stelle
                     };//fine context
 
