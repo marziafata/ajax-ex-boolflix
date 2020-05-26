@@ -73,30 +73,30 @@ function ricerca_utente() {
                     console.log(titolo);
                     var voto_massimo = 5;
                     var voto_su_cinque = (voto / 2);
-                    var voto_arrotondato = Math.ceil(voto_su_cinque);
+                    var voto_arrotondato = Math.round(voto_su_cinque);
                     var differenza_voto = (voto_massimo - voto_arrotondato);
 
-                    //creo le variabili che rappresentano le stelle vuote e piene
+                    //creo le variabili che rappresentano le stringhe delle stelle vuote e piene
                     var stella_piena = '<i class="fas fa-star"></i>';
                     var stella_vuota = '<i class="far fa-star"></i>';
 
                     //imposto le variabili che visualizzeranno la somma delle stelle sia piene che vuote
-                    var somma_stelle_piene = '';
-                    var differenza_stelle = '';
+                    var somma_stelle = '';
+                    // var differenza_stelle = '';
 
                     //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
-                    for (var star = 1; star < voto_arrotondato + 1; star++) {
+                    for (var star = 1; star <= 5; star++) {
 
-                        //contateno una stella per ogni unità di voto
-                        somma_stelle_piene += stella_piena;
+                        if (star <= voto_arrotondato) {
+
+                            somma_stelle += stella_piena;
+
+                        } else {
+                            somma_stelle += stella_vuota;
+                        }
+
 
                     }; //fine ciclo for stelle piene
-
-                    //ciclo i la differenza voti per mettere tante stelle vuote quante sono le unità che mancano al massimo dei voti
-                    for (var starEmpty = 1; starEmpty < differenza_voto + 1; starEmpty++) {
-                        differenza_stelle += stella_vuota;
-
-                    }; //fine ciclo for stelle vuote
 
 
                     function bandierine(lingua) {
@@ -132,7 +132,7 @@ function ricerca_utente() {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : bandierine(lingua),
-                        "voto" : somma_stelle_piene + differenza_stelle
+                        "voto" : somma_stelle
                     };//fine context
 
 
@@ -154,8 +154,8 @@ function ricerca_utente() {
     } else {
 
         alert('Digita qualcosa di sensato!');
-    } //fine if else controllo testo inserito dall'utente
+    }; //fine if else controllo testo inserito dall'utente
 
-}//fine funzione ricerca_utente()
+};//fine funzione ricerca_utente()
 
 });//fine document ready
