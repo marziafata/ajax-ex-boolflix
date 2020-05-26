@@ -51,6 +51,8 @@ function ricerca_utente() {
             },//questo data è un oggetto che non ha nulla a che vedere con la funzione (data)
             'success': function (data) {
 
+                $('.titolo-ricerca').addClass('visible');
+
                 compila_scheda(data, 'film');
 
             },// fine success
@@ -112,18 +114,36 @@ function compila_scheda(data, tipologia) {
 
         //mi tiro fuori tutte altre le proprietà in comune che mi servono:
         var locandina = video_corrente.poster_path;
+        console.log(locandina);
         var lingua = video_corrente.original_language;
         var voto = video_corrente.vote_average;
 
-        // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
-        var context = {
-            "locandina": radice_url_img + img_grande + locandina,
-            "titolo" : titolo,
-            "titolo-originale" : titolo_originale,
-            "lingua" : bandierine(lingua),
-            "voto" : starRating(voto),
-            "classe": classe
-        };//fine context
+        //prevedo una variabile se l'immagine non è disponibile
+        var locandina_mancante = 'netflix_black.png';
+
+
+        if (locandina == null) {
+            // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
+            var context = {
+                "locandina": locandina_mancante,
+                "titolo" : titolo,
+                "titolo-originale" : titolo_originale,
+                "lingua" : bandierine(lingua),
+                "voto" : starRating(voto),
+                "classe": classe
+            };//fine context
+        } else {
+
+            // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
+            var context = {
+                "locandina": radice_url_img + img_grande + locandina,
+                "titolo" : titolo,
+                "titolo-originale" : titolo_originale,
+                "lingua" : bandierine(lingua),
+                "voto" : starRating(voto),
+                "classe": classe
+            };//fine context
+        }// fine if
 
         //compilo il template con le proprietà inserite dentro context
         var scheda = template(context);
