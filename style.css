@@ -9,6 +9,11 @@ body {
     font-family: sans-serif;
 }
 
+ul {
+    list-style-type: none;
+    line-height: 30px;
+}
+
 header {
     height: 100px;
     background-color: black;
@@ -61,16 +66,14 @@ main {
     display: block;
 }
 
-.scheda-film ul span {
+.scheda-film ul span, .scheda-serie ul span  {
     color: red;
     font-weight: bold;
 }
 
-div.scheda-film {
-    height: 180px;
+div.card {
     width: 300px;
     color: white;
-    border: 1px solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,7 +83,10 @@ div.scheda-film {
     font-family: sans-serif;
 }
 
-div.scheda-film ul {
-    list-style-type: none;
-    line-height: 30px;
+.card.scheda-film {
+    border: 1px solid green;
+}
+
+.card.scheda-serie {
+    border: 1px solid blue;
 }

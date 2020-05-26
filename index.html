@@ -51,8 +51,19 @@
 
 
     <!-- TEMPLATE con HANDLEBARS -->
-    <script id="entry-template" type="text/x-handlebars-template">
-        <div class="scheda-film">
+    <script id="film-template" type="text/x-handlebars-template">
+        <div class="card scheda-film">
+            <ul>
+                <li><span>Titolo: </span> {{titolo}}</li>
+                <li><span>Titolo originale: </span>{{titolo-originale}}</span></li>
+                <li><span>Lingua: </span>{{{lingua}}}</li>
+                <li><span>Voto: </span>{{{voto}}}</li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="serie-template" type="text/x-handlebars-template">
+        <div class="card scheda-serie">
             <ul>
                 <li><span>Titolo: </span> {{titolo}}</li>
                 <li><span>Titolo originale: </span>{{titolo-originale}}</span></li>
