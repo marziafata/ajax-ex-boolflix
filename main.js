@@ -2,15 +2,14 @@ $(document).ready(function() {
 
     // creo delle variabili che so essere costanti
     var api_key = '702eb04790fdfb1eb76d04db48beddc9';
-    var radice_url = 'https://api.themoviedb.org/3/'
+    var radice_url = 'https://api.themoviedb.org/3/';
+    var radice_url_img = 'https://image.tmdb.org/t/p/';
+    var img_media = "w185";
+    var img_grande = "w342";
 
     //dichiaro le variabili che mi serviranno con Handlebars
-    //film
-    var source = $('#film-template').html();
+    var source = $('#video-template').html();
     var template = Handlebars.compile(source);
-    // serie_tv
-    var source2 = $('#serie-template').html();
-    var template2 = Handlebars.compile(source2);
 
     //intercetto i tasti nel campo ricerca
     $('#testo-ricerca').keypress(function(event) {
@@ -38,7 +37,7 @@ function ricerca_utente() {
     //controllo che l'utente abbia digitato qualcosa
     if (ricerca.length >= 2) { //oppure potevo mettere ricerca != diverso da '' stringa vuota
 
-        gestisciInput();
+        gestisciInput(ricerca);
 
         //faccio partire la chiamata ajax per i film
         $.ajax({
@@ -52,46 +51,7 @@ function ricerca_utente() {
             },//questo data è un oggetto che non ha nulla a che vedere con la funzione (data)
             'success': function (data) {
 
-                //aggiungo la classe visible al titolo per visualizzarlo
-                $('.titolo-ricerca').addClass('visible');
-                var film = data.results;
-
-                //ciclo l'array per leggere tutti gli oggetti all'interno
-                for (var i = 0; i < film.length; i++) {
-                    var film_corrente = film[i];
-
-                    //mi tiro fuori tutte le proprietà che mi servono:
-                    var titolo = film_corrente.title;
-                    var titolo_originale = film_corrente.original_title;
-                    var lingua = film_corrente.original_language;
-                    var voto = film_corrente.vote_average;
-
-                    // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
-                    // var dati_film = '<ul>';
-                    // dati_film += '<li>' + titolo + '</li>';//+= serve a creare e concatenare contemporaneamente una variabile: prende quello che c'era già salvato nella variabile e ci aggiunge il nuovo valore.
-                    // dati_film += '<li>' + titolo_originale + '</li>';
-                    // dati_film += '<li>' + lingua + '</li>';
-                    // dati_film += '<li>' + voto + '</li>';
-                    // dati_film = '</ul>';
-                    // $('.container').append(dati_film);
-
-
-                    // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni film corrente
-                    var context = {
-                        "titolo" : titolo,
-                        "titolo-originale" : titolo_originale,
-                        "lingua" : bandierine(lingua),
-                        "voto" : starRating(voto)
-                    };//fine context
-
-
-                    //compilo il template con le proprietà inserite dentro context
-                    var scheda_film = template(context);
-
-                    //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
-                    $('.ricerca').append(scheda_film);
-
-                }//fine ciclo for
+                compila_scheda(data, 'film');
 
             },// fine success
             'error': function () {
@@ -111,37 +71,8 @@ function ricerca_utente() {
                 'language': 'it'
             },//questo data è un oggetto che non ha nulla a che vedere con la funzione (data)
             'success': function (data) {
-                //leggo i risultati dell'api
-                var serie_tv = data.results;
 
-                //ciclo i risultati restituiti
-                for (var i = 0; i < serie_tv.length; i++) {
-                    var serie_corrente = serie_tv[i];
-                    console.log(serie_corrente);
-
-                    //mi tiro fuori tutte le proprietà che mi servono:
-                    var titolo = serie_corrente.name;
-                    var titolo_originale = serie_corrente.original_name;
-                    var lingua = serie_corrente.original_language;
-                    var voto = serie_corrente.vote_average;
-
-                    starRating(voto);
-
-                    // imposto le proprietà dell'oggetto context2 e le compilo con le proprietà recuperate da ogni serie tv corrente
-                    var context2 = {
-                        "titolo" : titolo,
-                        "titolo-originale" : titolo_originale,
-                        "lingua" : bandierine(lingua),
-                        "voto" : starRating(voto)
-                    };//fine context
-
-
-                    //compilo il template con le proprietà inserite dentro context
-                    var scheda_serie = template2(context2);
-
-                    //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
-                    $('.ricerca').append(scheda_serie);
-                }// fine ciclo for
+                compila_scheda(data, 'serie-tv');
 
             },// fine success
             'error': function () {
@@ -156,38 +87,68 @@ function ricerca_utente() {
         alert('Digita qualcosa di sensato!');
     }; //fine if else controllo testo inserito dall'utente
 
-    function gestisciInput() {
-        //inserisco il testo cercato dall'utente nel titolo della pagina
-        $('span.ricerca-utente').text(ricerca);
+};//fine funzione ricerca_utente()
 
-        // resetto l'input
-        $('#testo-ricerca').val('');
+function compila_scheda(data, tipologia) {
+    //leggo i risultati dell'api
+    var video = data.results;
 
-        //nascondo il titolo
-        $('.titolo-ricerca').removeClass('visible');
+    //ciclo i risultati restituiti
+    for (var i = 0; i < video.length; i++) {
+        var video_corrente = video[i];
 
-        //svuoto il container dai risultati precedenti
-        // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
-        // $('.container').html(''); // setta l'html del container a svuoto
-        $('.ricerca').empty(''); //svuota il container
-        // il reset dell'input e del container meglio farli sempre vicini
-    }// fine gestisciInput
+        if (tipologia == 'film') {
+            //tiro fuori le specifiche dei film
+            var titolo = video_corrente.title;
+            var titolo_originale = video_corrente.original_title;
+            var classe = 'scheda-film';
 
-    function bandierine(lingua) {
-        //creo un array con le lingue di cui ho le bandierine
-        var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
-        //creo una variabile con la stringa che mi serve
-        var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
+        } else if (tipologia == 'serie-tv'){
+            //tiro fuori le specifiche delle serie tv
+            var titolo = video_corrente.name;
+            var titolo_originale = video_corrente.original_name;
+            var classe = 'scheda-serie';
+        }// fine if tipologia film o serie tv
 
-        if (bandiere.includes(lingua)) {
-            // se la ho la foto della bandierina mi restituisce l'immagine
-            return bandiera_corrente;
+        //mi tiro fuori tutte altre le proprietà in comune che mi servono:
+        var locandina = video_corrente.poster_path;
+        var lingua = video_corrente.original_language;
+        var voto = video_corrente.vote_average;
 
-        } else {
-         // altrimenti mostra il codice lingua
-            return lingua;
-        }// fine if bandiere incluse
-        }; // fine funzione bandierine
+        // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
+        var context = {
+            "locandina": radice_url_img + img_grande + locandina,
+            "titolo" : titolo,
+            "titolo-originale" : titolo_originale,
+            "lingua" : bandierine(lingua),
+            "voto" : starRating(voto),
+            "classe": classe
+        };//fine context
+
+        //compilo il template con le proprietà inserite dentro context
+        var scheda = template(context);
+
+        //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
+        $('.ricerca').append(scheda);
+    }// fine ciclo for
+}// fine funzione per compilare la scheda
+
+function bandierine(lingua) {
+    //creo un array con le lingue di cui ho le bandierine
+    var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
+    //creo una variabile con la stringa che mi serve
+    var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
+
+    if (bandiere.includes(lingua)) {
+        // se la ho la foto della bandierina mi restituisce l'immagine
+        return bandiera_corrente;
+
+    } else {
+     // altrimenti mostra il codice lingua
+        return lingua;
+    }// fine if bandiere incluse
+    }; // fine funzione bandierine
+
 
     function starRating(voto) {
         //trasformo il voto da base 10 a base 5 e lo arrotondo
@@ -217,12 +178,24 @@ function ricerca_utente() {
             }// fine if stelline
 
         }; //fine ciclo for stelle
-    }
+    }// fine funzione star starRating
 
-};//fine funzione ricerca_utente()
+    function gestisciInput(ricerca) {
+        //inserisco il testo cercato dall'utente nel titolo della pagina
+        $('span.ricerca-utente').text(ricerca);
 
+        // resetto l'input
+        $('#testo-ricerca').val('');
 
+        //nascondo il titolo
+        $('.titolo-ricerca').removeClass('visible');
 
+        //svuoto il container dai risultati precedenti
+        // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
+        // $('.container').html(''); // setta l'html del container a svuoto
+        $('.ricerca').empty(''); //svuota il container
+        // il reset dell'input e del container meglio farli sempre vicini
+    }// fine gestisciInput
 
 
 });//fine document ready
