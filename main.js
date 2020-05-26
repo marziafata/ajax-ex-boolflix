@@ -38,20 +38,7 @@ function ricerca_utente() {
     //controllo che l'utente abbia digitato qualcosa
     if (ricerca.length >= 2) { //oppure potevo mettere ricerca != diverso da '' stringa vuota
 
-        //inserisco il testo cercato dall'utente nel titolo della pagina
-        $('span.ricerca-utente').text(ricerca);
-
-        // resetto l'input
-        $('#testo-ricerca').val('');
-
-        //nascondo il titolo
-        $('.titolo-ricerca').removeClass('visible');
-
-        //svuoto il container dai risultati precedenti
-        // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
-        // $('.container').html(''); // setta l'html del container a svuoto
-        $('.ricerca').empty(''); //svuota il container
-        // il reset dell'input e del container meglio farli sempre vicini
+        gestisciInput();
 
         //faccio partire la chiamata ajax per i film
         $.ajax({
@@ -79,52 +66,6 @@ function ricerca_utente() {
                     var lingua = film_corrente.original_language;
                     var voto = film_corrente.vote_average;
 
-                    //trasformo il voto da base 10 a base 5 e lo arrotondo
-                    var voto_massimo = 5;
-                    var voto_su_cinque = (voto / 2);
-                    var voto_arrotondato = Math.round(voto_su_cinque);
-
-                    //creo le variabili che rappresentano le stringhe delle stelle vuote e piene
-                    var stella_piena = '<i class="fas fa-star"></i>';
-                    var stella_vuota = '<i class="far fa-star"></i>';
-
-                    //imposto la variabile che visualizzerà la somma delle stelle sia piene che vuote
-                    var somma_stelle = '';
-
-                    //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
-                    for (var star = 1; star <= voto_massimo; star++) {
-
-                        // devo decidere quanto mettere stella piena e quando vuota:
-                        // finchè la mia variabile star (i) è minore o oguale al voto, metto le stelle piene
-                        if (star <= voto_arrotondato) {
-
-                            somma_stelle += stella_piena;
-
-                        // quando raggiunge il voto mette tante stelle vuote fino ad arrivare a voto massimo che è 5
-                        } else {
-                            somma_stelle += stella_vuota;
-                        }// fine if stelline
-
-                    }; //fine ciclo for stelle
-
-
-                    function bandierine(lingua) {
-                        //creo un array con le lingue di cui ho le bandierine
-                        var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
-                        //creo una variabile con la stringa che mi serve
-                        var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
-
-                        if (bandiere.includes(lingua)) {
-                            // se la ho la foto della bandierina mi restituisce l'immagine
-                            return bandiera_corrente;
-
-                        } else {
-                         // altrimenti mostra il codice lingua
-                            return lingua;
-                        }// fine if bandiere incluse
-                        }; // fine funzione bandierine
-
-
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
                     // var dati_film = '<ul>';
                     // dati_film += '<li>' + titolo + '</li>';//+= serve a creare e concatenare contemporaneamente una variabile: prende quello che c'era già salvato nella variabile e ci aggiunge il nuovo valore.
@@ -140,7 +81,7 @@ function ricerca_utente() {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : bandierine(lingua),
-                        "voto" : somma_stelle
+                        "voto" : starRating(voto)
                     };//fine context
 
 
@@ -184,58 +125,14 @@ function ricerca_utente() {
                     var lingua = serie_corrente.original_language;
                     var voto = serie_corrente.vote_average;
 
-                    //trasformo il voto da base 10 a base 5 e lo arrotondo
-                    var voto_massimo = 5;
-                    var voto_su_cinque = (voto / 2);
-                    var voto_arrotondato = Math.round(voto_su_cinque);
-
-                    //creo le variabili che rappresentano le stringhe delle stelle vuote e piene
-                    var stella_piena = '<i class="fas fa-star"></i>';
-                    var stella_vuota = '<i class="far fa-star"></i>';
-
-                    //imposto la variabile che visualizzerà la somma delle stelle sia piene che vuote
-                    var somma_stelle = '';
-
-                    //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
-                    for (var star = 1; star <= voto_massimo; star++) {
-
-                        // devo decidere quanto mettere stella piena e quando vuota:
-                        // finchè la mia variabile star (i) è minore o oguale al voto, metto le stelle piene
-                        if (star <= voto_arrotondato) {
-
-                            somma_stelle += stella_piena;
-
-                        // quando raggiunge il voto mette tante stelle vuote fino ad arrivare a voto massimo che è 5
-                        } else {
-                            somma_stelle += stella_vuota;
-                        }// fine if stelline
-
-                    }; //fine ciclo for stelle
-
-
-                    function bandierine(lingua) {
-                        //creo un array con le lingue di cui ho le bandierine
-                        var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
-                        //creo una variabile con la stringa che mi serve
-                        var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
-
-                        if (bandiere.includes(lingua)) {
-                            // se la ho la foto della bandierina mi restituisce l'immagine
-                            return bandiera_corrente;
-
-                        } else {
-                         // altrimenti mostra il codice lingua
-                            return lingua;
-                        }// fine if bandiere incluse
-                        }; // fine funzione bandierine
-
+                    starRating(voto);
 
                     // imposto le proprietà dell'oggetto context2 e le compilo con le proprietà recuperate da ogni serie tv corrente
                     var context2 = {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
                         "lingua" : bandierine(lingua),
-                        "voto" : somma_stelle
+                        "voto" : starRating(voto)
                     };//fine context
 
 
@@ -259,6 +156,73 @@ function ricerca_utente() {
         alert('Digita qualcosa di sensato!');
     }; //fine if else controllo testo inserito dall'utente
 
+    function gestisciInput() {
+        //inserisco il testo cercato dall'utente nel titolo della pagina
+        $('span.ricerca-utente').text(ricerca);
+
+        // resetto l'input
+        $('#testo-ricerca').val('');
+
+        //nascondo il titolo
+        $('.titolo-ricerca').removeClass('visible');
+
+        //svuoto il container dai risultati precedenti
+        // $('.scheda-film').remove(); //rischioso se ho stessa classe da altre parti. meglio mettere un selettore davanti
+        // $('.container').html(''); // setta l'html del container a svuoto
+        $('.ricerca').empty(''); //svuota il container
+        // il reset dell'input e del container meglio farli sempre vicini
+    }// fine gestisciInput
+
+    function bandierine(lingua) {
+        //creo un array con le lingue di cui ho le bandierine
+        var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
+        //creo una variabile con la stringa che mi serve
+        var bandiera_corrente = '<img src="img/flag_' + lingua + '.png" alt="' + lingua + '">'
+
+        if (bandiere.includes(lingua)) {
+            // se la ho la foto della bandierina mi restituisce l'immagine
+            return bandiera_corrente;
+
+        } else {
+         // altrimenti mostra il codice lingua
+            return lingua;
+        }// fine if bandiere incluse
+        }; // fine funzione bandierine
+
+    function starRating(voto) {
+        //trasformo il voto da base 10 a base 5 e lo arrotondo
+        var voto_massimo = 5;
+        var voto_su_cinque = (voto / 2);
+        var voto_arrotondato = Math.round(voto_su_cinque);
+
+        //creo le variabili che rappresentano le stringhe delle stelle vuote e piene
+        var stella_piena = '<i class="fas fa-star"></i>';
+        var stella_vuota = '<i class="far fa-star"></i>';
+
+        //imposto la variabile che visualizzerà la somma delle stelle sia piene che vuote
+        var somma_stelle = '';
+
+        //ciclo i voti arrotondati per mettere tante stelle quante sono le unità che compongono i voti
+        for (var star = 1; star <= voto_massimo; star++) {
+
+            // devo decidere quanto mettere stella piena e quando vuota:
+            // finchè la mia variabile star (i) è minore o oguale al voto, metto le stelle piene
+            if (star <= voto_arrotondato) {
+
+                somma_stelle += stella_piena;
+
+            // quando raggiunge il voto mette tante stelle vuote fino ad arrivare a voto massimo che è 5
+            } else {
+                somma_stelle += stella_vuota;
+            }// fine if stelline
+
+        }; //fine ciclo for stelle
+    }
+
 };//fine funzione ricerca_utente()
+
+
+
+
 
 });//fine document ready
