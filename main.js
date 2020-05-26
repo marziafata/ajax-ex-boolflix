@@ -73,7 +73,7 @@ function ricerca_utente() {
                     console.log(titolo);
                     var voto_massimo = 5;
                     var voto_su_cinque = (voto / 2);
-                    var voto_arrotondato = Math.ceil(votoBaseFive);
+                    var voto_arrotondato = Math.ceil(voto_su_cinque);
                     var differenza_voto = (voto_massimo - voto_arrotondato);
 
                     //creo le variabili che rappresentano le stelle vuote e piene
@@ -99,8 +99,15 @@ function ricerca_utente() {
                     }; //fine ciclo for stelle vuote
 
                     //creo un array con le lingue di cui ho le bandierine
-                    var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'pt-BR' ];
+                    var bandiere = ['de', 'el', 'en', 'es', 'fi', 'fr', 'it', 'no', 'pl', 'br' ];
 
+                    var bandiera_corrente = '<img src="img/flag_' + lingua + '" alt="' + lingua + '">'
+                    console.log(bandiera_corrente);
+
+                    // if (film_corrente.original_language.includes(bandiere)) {
+                    //
+                    //
+                    // }
 
                     // ESEMPIO PER APPENDERE HTML senza HANDLEBARS ma poco elegante, quindi sconsigliato
                     // var dati_film = '<ul>';
@@ -112,14 +119,14 @@ function ricerca_utente() {
                     // $('.container').append(dati_film);
 
 
-
                     // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni film corrente
                     var context = {
                         "titolo" : titolo,
                         "titolo-originale" : titolo_originale,
-                        "lingua" : lingua,
-                        "voto" : voto_finale + stelle_mancanti
+                        "lingua" : bandiera_corrente,
+                        "voto" : somma_stelle_piene + differenza_stelle
                     };//fine context
+
 
                     //compilo il template con le proprietà inserite dentro context
                     var scheda_film = template(context);
