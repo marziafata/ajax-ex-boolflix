@@ -34,7 +34,12 @@
                         "<span class="ricerca-utente"></span>"
                     </h1>
                 </div>
-                <div class="ricerca">
+                <h2 class="titolo-ricerca">Serie TV</h2>
+                <div class="ricerca serietv">
+
+                </div>
+                <h2 class="titolo-ricerca">Film</h2>
+                <div class="ricerca film">
 
                 </div>
             </div>
@@ -43,7 +48,9 @@
 
 
 
+<div class="">
 
+</div>
 
 
 
@@ -53,8 +60,10 @@
     <!-- TEMPLATE con HANDLEBARS -->
     <script id="video-template" type="text/x-handlebars-template">
         <div class="card {{classe}}">
-            <img src="{{locandina}}" alt="{{titolo}}">
-            <ul>
+            <div class="poster">
+                <img src="{{locandina}}" alt="{{titolo}}">
+            </div>
+            <ul class="dettagli invisible">
                 <li><span>Titolo: </span> {{titolo}}</li>
                 <li><span>Titolo originale: </span>{{titolo-originale}}</span></li>
                 <li><span>Lingua: </span>{{{lingua}}}</li>

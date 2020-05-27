@@ -144,16 +144,42 @@ function compila_scheda(data, tipologia) {
             "classe": classe
         };//fine context
 
-        console.log(starRating(voto));
-
         //compilo il template con le proprietà inserite dentro context
         var scheda = template(context);
 
-        //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
-        $('.ricerca').append(scheda);
+        if (classe == 'scheda-serie') {
+            $('.ricerca.serietv').append(scheda);
+        } else {
+            //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
+            $('.ricerca.film').append(scheda);
+        }
+
+
 
     }// fine ciclo for
+
+    // $('.ricerca .card').mouseenter(function(){
+    //
+    //     $(this).find('.poster').addClass('invisible');
+    //
+    //     $(this).find('.dettagli').removeClass('invisible').addClass('visible');
+    // })
+
+    // $('.ricerca .card').mouseleave(function(){
+    //
+    //     $(this).find('.dettagli').removeClass('visible');
+    //
+    //     $(this).find('.dettagli').addClass('invisible');
+    //
+    //     $(this).find('.poster').removeClass('invisible');
+    //
+    //     $(this).find('.poster').addClass('visible');
+    //
+    //
+    // })
 }// fine funzione per compilare la scheda
+
+
 
 function bandierine(lingua) {
     //creo un array con le lingue di cui ho le bandierine

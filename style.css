@@ -42,10 +42,6 @@ main {
 .container {
     width: 90%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
     padding: 100px 0;
 }
 
@@ -66,18 +62,18 @@ main {
     display: block;
 }
 
-.scheda-film ul span, .scheda-serie ul span  {
+.scheda-film .dettagli span, .scheda-serie .dettagli span  {
     color: red;
     font-weight: bold;
 }
 
 div.card {
+    width: 342px;
+    height: 516px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px;
-    margin: 5px;
     font-size: 14px;
     font-family: sans-serif;
 }
@@ -88,4 +84,12 @@ div.card {
 
 .card.scheda-serie {
     border: 1px solid blue;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
 }
