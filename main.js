@@ -119,6 +119,7 @@ function compila_scheda(data, tipologia) {
         var locandina = video_corrente.poster_path;
         var lingua = video_corrente.original_language;
         var voto = video_corrente.vote_average;
+        var trama = video_corrente.overview;
 
         //prevedo una variabile se l'immagine non è disponibile
         var locandina_mancante = 'netflix_black.png';
@@ -141,6 +142,7 @@ function compila_scheda(data, tipologia) {
             "titolo-originale" : titolo_originale,
             "lingua" : bandierine(lingua),
             "voto" : starRating(voto),
+            "trama": trama,
             "classe": classe
         };//fine context
 
@@ -158,28 +160,28 @@ function compila_scheda(data, tipologia) {
 
     }// fine ciclo for
 
-    // $('.ricerca .card').mouseenter(function(){
-    //
-    //     $(this).find('.poster').addClass('invisible');
-    //
-    //     $(this).find('.dettagli').removeClass('invisible').addClass('visible');
-    // })
 
-    // $('.ricerca .card').mouseleave(function(){
-    //
-    //     $(this).find('.dettagli').removeClass('visible');
-    //
-    //     $(this).find('.dettagli').addClass('invisible');
-    //
-    //     $(this).find('.poster').removeClass('invisible');
-    //
-    //     $(this).find('.poster').addClass('visible');
-    //
-    //
-    // })
 }// fine funzione per compilare la scheda
 
+//aggancio l'evento al passaggio del mouse
+$('.ricerca').on('mouseenter', '.card', function(){
 
+    // nascondo la locandina
+    $(this).find('.poster').removeClass('visible').addClass('invisible');
+
+    // mostro la scheda tecnica
+    $(this).find('.dettagli').removeClass('invisible').addClass('visible');
+});
+
+// quando esco dalla locandina
+$('.ricerca').on('mouseleave', '.card', function(){
+
+    //nascondo la scheda tecnica
+    $(this).find('.dettagli').removeClass('visible').addClass('invisible');
+
+    // mostro di nuovo la locandina
+    $(this).find('.poster').removeClass('invisible').addClass('visible');
+});
 
 function bandierine(lingua) {
     //creo un array con le lingue di cui ho le bandierine
