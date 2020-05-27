@@ -52,6 +52,7 @@ function ricerca_utente() {
 
                 $('.titolo-ricerca').addClass('visible');
 
+                // gli passo i parametri che mi servono: i dati dell'api e se è serie o film
                 compila_scheda(data, 'film');
 
             },// fine success
@@ -73,6 +74,7 @@ function ricerca_utente() {
             },//questo data è un oggetto che non ha nulla a che vedere con la funzione (data)
             'success': function (data) {
 
+                // gli passo i parametri che mi servono: i dati dell'api e se è serie o film
                 compila_scheda(data, 'serie-tv');
 
             },// fine success
@@ -98,12 +100,14 @@ function compila_scheda(data, tipologia) {
     for (var i = 0; i < video.length; i++) {
         var video_corrente = video[i];
 
+        // se è un film
         if (tipologia == 'film') {
             //tiro fuori le specifiche dei film
             var titolo = video_corrente.title;
             var titolo_originale = video_corrente.original_title;
             var classe = 'scheda-film';
 
+        // altrimenti è una serie tv
         } else if (tipologia == 'serie-tv'){
             //tiro fuori le specifiche delle serie tv
             var titolo = video_corrente.name;
@@ -119,7 +123,7 @@ function compila_scheda(data, tipologia) {
         //prevedo una variabile se l'immagine non è disponibile
         var locandina_mancante = 'netflix_black.png';
 
-
+        // verifico se c'è la locandina
         if (locandina == null) {
             // se la locandina non c'è metto l'immagine locandina mancante
             var poster = locandina_mancante
@@ -147,6 +151,7 @@ function compila_scheda(data, tipologia) {
 
         //...e per ognuno di essi disegnare in pagina una card utilizzando handlebars.
         $('.ricerca').append(scheda);
+
     }// fine ciclo for
 }// fine funzione per compilare la scheda
 
