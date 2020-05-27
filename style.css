@@ -72,7 +72,6 @@ main {
 }
 
 div.card {
-    width: 300px;
     color: white;
     display: flex;
     flex-direction: column;

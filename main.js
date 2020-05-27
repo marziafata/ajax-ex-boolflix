@@ -4,8 +4,7 @@ $(document).ready(function() {
     var api_key = '702eb04790fdfb1eb76d04db48beddc9';
     var radice_url = 'https://api.themoviedb.org/3/';
     var radice_url_img = 'https://image.tmdb.org/t/p/';
-    var img_media = "w185";
-    var img_grande = "w342";
+    var img_dimensione = "w342";
 
     //dichiaro le variabili che mi serviranno con Handlebars
     var source = $('#video-template').html();
@@ -123,27 +122,24 @@ function compila_scheda(data, tipologia) {
 
 
         if (locandina == null) {
-            // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
-            var context = {
-                "locandina": locandina_mancante,
-                "titolo" : titolo,
-                "titolo-originale" : titolo_originale,
-                "lingua" : bandierine(lingua),
-                "voto" : starRating(voto),
-                "classe": classe
-            };//fine context
+
+            var poster = locandina_mancante
+
         } else {
 
-            // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
-            var context = {
-                "locandina": radice_url_img + img_grande + locandina,
-                "titolo" : titolo,
-                "titolo-originale" : titolo_originale,
-                "lingua" : bandierine(lingua),
-                "voto" : starRating(voto),
-                "classe": classe
-            };//fine context
+            var poster = radice_url_img + img_dimensione + locandina;
+
         }// fine if
+
+        // imposto le proprietà dell'oggetto context e le compilo con le proprietà recuperate da ogni elemento (serietv o film)
+        var context = {
+            "locandina": poster,
+            "titolo" : titolo,
+            "titolo-originale" : titolo_originale,
+            "lingua" : bandierine(lingua),
+            "voto" : starRating(voto),
+            "classe": classe
+        };//fine context
 
         //compilo il template con le proprietà inserite dentro context
         var scheda = template(context);
