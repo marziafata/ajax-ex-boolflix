@@ -113,7 +113,6 @@ function compila_scheda(data, tipologia) {
 
         //mi tiro fuori tutte altre le proprietà in comune che mi servono:
         var locandina = video_corrente.poster_path;
-        console.log(locandina);
         var lingua = video_corrente.original_language;
         var voto = video_corrente.vote_average;
 
@@ -140,6 +139,8 @@ function compila_scheda(data, tipologia) {
             "voto" : starRating(voto),
             "classe": classe
         };//fine context
+
+        console.log(starRating(voto));
 
         //compilo il template con le proprietà inserite dentro context
         var scheda = template(context);
@@ -194,6 +195,8 @@ function bandierine(lingua) {
             }// fine if stelline
 
         }; //fine ciclo for stelle
+
+        return somma_stelle;
     }// fine funzione star starRating
 
     function gestisciInput(ricerca) {
