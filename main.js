@@ -122,11 +122,11 @@ function compila_scheda(data, tipologia) {
 
 
         if (locandina == null) {
-
+            // se la locandina non c'è metto l'immagine locandina mancante
             var poster = locandina_mancante
 
         } else {
-
+            // altrimenti metto l'immagine restituita da api
             var poster = radice_url_img + img_dimensione + locandina;
 
         }// fine if
